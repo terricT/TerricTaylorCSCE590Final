@@ -1,0 +1,97 @@
+import pandas as pd
+from datetime import datetime, timedelta
+from matplotlib import pyplot as plt
+from matplotlib import dates as mpl_dates
+
+data1 = pd.read_csv('states.csv')
+
+mumbai = data1[data1.State == 'Maharashtra']
+Delhi = data1[data1.State == 'Delhi']
+Chennai = data1[data1.State == 'Tamil Nadu']
+
+rolling_mean = mumbai.Confirmed.rolling(window=20).mean()
+rolling_mean2 = Delhi.Confirmed.rolling(window=20).mean()
+rolling_mean3 = Chennai.Confirmed.rolling(window=20).mean()
+
+
+plt.plot(mumbai.Date, mumbai.Confirmed / 10**4)
+plt.plot(mumbai.Date, rolling_mean /10**4, color='purple')
+plt.plot(Delhi.Date, Delhi.Confirmed / 10**4)
+plt.plot(Delhi.Date, rolling_mean2 /10**4, color='magenta')
+plt.plot(Chennai.Date, Chennai.Confirmed / 10**4)
+plt.plot(Chennai.Date, rolling_mean3 /10**4, color='pink')
+plt.legend(['mumbai','mumbai rolling mean','Delhi','Delhi rolling mean','Chennai','Chennai rolling mean'])
+plt.xlabel('year')
+plt.ylabel('confirmed (millions)')
+plt.title('Confirmed cases of Corona in these districts')
+
+plt.axhline(y=10, color='r', linestyle='-')
+plt.axhline(y=350, color='r', linestyle='-')
+plt.axhline(y=180, color='g', linestyle='-')
+
+plt.show()
+
+rm1 = mumbai.Recovered.rolling(window=20).mean()
+rm2 = Delhi.Recovered.rolling(window=20).mean()
+rm3 = Chennai.Recovered.rolling(window=20).mean()
+
+plt.plot(mumbai.Date, mumbai.Recovered / 10**4)
+plt.plot(mumbai.Date, rm1 /10**4, color='purple')
+plt.plot(Delhi.Date, Delhi.Recovered / 10**4)
+plt.plot(Delhi.Date, rm2 /10**4, color='magenta')
+plt.plot(Chennai.Date, Chennai.Recovered / 10**4)
+plt.plot(Chennai.Date, rm3 /10**4, color='pink')
+plt.legend(['mumbai','mumbai rolling mean','Delhi','Delhi rolling mean','Chennai','Chennai rolling mean'])
+plt.xlabel('year')
+plt.ylabel('Recovered (millions')
+plt.title('confirmed recoveries from Corona in these districts')
+
+plt.axhline(y=10, color='r', linestyle='-')
+plt.axhline(y=300, color='r', linestyle='-')
+plt.axhline(y=150, color='g', linestyle='-')
+
+plt.show()
+
+Rm1 = mumbai.Deceased.rolling(window=20).mean()
+Rm2 = Delhi.Deceased.rolling(window=20).mean()
+Rm3 = Chennai.Deceased.rolling(window=20).mean()
+
+plt.plot(mumbai.Date, mumbai.Deceased )
+plt.plot(mumbai.Date, Rm1, color='purple')
+plt.plot(Delhi.Date, Delhi.Deceased )
+plt.plot(Delhi.Date, Rm2, color='magenta')
+plt.plot(Chennai.Date, Chennai.Deceased )
+plt.plot(Chennai.Date, Rm3, color='pink')
+plt.legend(['mumbai','mumbai rolling mean','Delhi','Delhi rolling mean','Chennai','Chennai rolling mean'])
+plt.xlabel('year')
+plt.ylabel('Fatalities')
+plt.title('confirmed deaths from Corona in these districts')
+
+plt.axhline(y=1000, color='r', linestyle='-')
+plt.axhline(y=65000, color='r', linestyle='-')
+plt.axhline(y=40000, color='g', linestyle='-')
+
+plt.show()
+
+
+RM1 = mumbai.Tested.rolling(window=20).mean()
+RM2 = Delhi.Tested.rolling(window=20).mean()
+RM3 = Chennai.Tested.rolling(window=20).mean()
+
+plt.plot(mumbai.Date, mumbai.Tested / 10**5)
+plt.plot(mumbai.Date, RM1 / 10**5, color='purple')
+plt.plot(Delhi.Date, Delhi.Tested / 10**5 )
+plt.plot(Delhi.Date, RM2 / 10**5, color='magenta')
+plt.plot(Chennai.Date, Chennai.Tested / 10**5)
+plt.plot(Chennai.Date, RM3 / 10**5, color='pink')
+plt.legend(['mumbai','mumbai rolling mean','Delhi','Delhi rolling mean','Chennai','Chennai rolling mean'])
+plt.xlabel('year')
+plt.ylabel('Tested (ten-millions)')
+plt.title('confirmed number of people tested in these districts')
+
+
+
+plt.show()
+print()
+
+#print(Delhi, mumbai, Chennai)
